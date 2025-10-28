@@ -1,59 +1,81 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PHP</title>
-</head>
-<body>
-    <?php
-    //nova conexão
-    $conexao= new mysqli("localhost","root","",);
+<?php 
 
-    //verifica se a conexão foi concluida com sucesso
-    if($conexao->connect_error)
-    {
-        echo"conexao falhou" .$conexao->connect_error;;
-    }
-    // criação do banco de dados
-    $create_database= "CREATE DATABASE IF NOT EXISTS AulaSW";
-    $conexao->query($create_database);
-    
-    //criação das tabelas
-    
-    //tabela de clientes
-    $tabela_clientes="CREATE TABLE CLIENTES(
-     ID INT PRIMARY KEY AUTO_INCREMENT,
-     NOME VARCHAR(180) NOT NULL,
-     TELEFONE VARCHAR(20)   
-    )";
-    //tabela atnedentes
-    $tabela_atendentes="CREATE TABLE ATENDENTES(
-        ID INT PRIMARY KEY AUTO_INCREMENT,
-        NOME VARCHAR(180) NOT NULL,
-        TELEFONE VARCHAR (20) NOT NULL
-    )";
-    //tabela de serviços
-    $tabela_servicos="CREATE TABLE SERVICO(
-        ID INT PRIMARY KEY AUTO_INCREMENT,
-        SERVICO VARCHAR(180),
-    )";
-    $tabela_horarios="CREATE TABLE HORARIO(
-        ID INT PRIMARY KEY AUTO_INCREMENT,
-        HORARIO_INICIO VARCHAR(5) NOT NULL,
-        HORARIO_TERMINO VARCHAR(5) NOT NULL,
-        DIA_SEMENA VARCHAR(10) NOT NULL
-    )";
-    $tabela_atendentes_horario="CREATE TABLE ATENDENTES_HORARIO(
-        ID INT PRIMARY KEY AUTO_INCREMENT,
-        ID_ATENDENTE INT NOT NULL,
-        ID_HORARIO INT NOT NULL,
-        CONSTRAINT FK_ATENDENTE FOREIGN KEY ID_ATENDENTE REFERENCES ATENDENTES(ID),
-        CONSTRAINT FK_HORARIO FOREIGN KEY ID_HORARIO REFERENCES HORARIO(ID),
-         )";
+$conexao = new mysqli("localhost","root","");
+if($conexao->connect_error)
+{
+    echo "Conexão Falhou: ".$conexao->connect_error;
+}
+$conexao->query("DROP DATABASE AulaSW");
 
-    ?>
-    
-</body>
-</html>
+$create_database = "CREATE DATABASE IF NOT EXISTS AulaSW";
+$conexao->query($create_database);
+
+$conexao->query("USE AulaSW");
+
+$tabela_clientes = "CREATE TABLE CLIENTES(
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    NOME VARCHAR(180) NOT NULL,
+    TELEFONE VARCHAR(20)
+)";
+
+$tabela_atendente = "CREATE TABLE ATENDENTES(
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    NOME VARCHAR(180) NOT NULL,
+    TELEFONE VARCHAR(20) NOT NULL
+)";
+
+$tabela_servicos = "CREATE TABLE SERVICOS(
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    SERVICO VARCHAR(180)
+)";
+
+$tabela_horarios = "CREATE TABLE HORARIOS(
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    HORARIO_INICIO VARCHAR(5) NOT NULL,
+    HORARIO_TERMINO VARCHAR(5) NOT NULL,
+    DIA_SEMANA VARCHAR(10) NOT NULL
+)";
+
+$tabela_atendente_horario = "CREATE TABLE ATENDENTE_HORARIO(
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    ID_ATENDENTE INT NOT NULL,
+    ID_HORARIO INT NOT NULL,
+    CONSTRAINT FK_ATENDENTE FOREIGN KEY (ID_ATENDENTE) REFERENCES ATENDENTES(ID),
+    CONSTRAINT FK_HORARIO FOREIGN KEY (ID_HORARIO) REFERENCES HORARIOS(ID)
+)";
+
+if ($conexao->query($tabela_clientes)===true)
+{
+    echo "Tabela Clientes Instalada<br>";
+}else{ echo $conexao->error;};
+
+if ($conexao->query($tabela_atendente)===true)
+{   
+    echo "Tabela atendente instalada com sucesso<br>";
+}else{ echo $conexao->error;};
+
+if ($conexao->query($tabela_servicos)===true)
+{
+    echo "tabela Serviços instalada <br>";
+}else{ echo $conexao->error;};
+
+if ($conexao->query($tabela_horarios)===true){
+    echo "Tabela Horarios Instalada<br>";
+}else{ echo $conexao->error;};
+
+if ($conexao->query($tabela_atendente_horario)===true)
+{
+    echo "Tabela Atendente x Horario Instalada com sucesso<Br>"; 
+}else{ echo $conexao->error;};
+
+$conexao->query(
+"INSERT INTO CLIENTES (NOME, TELEFONE) VALUES
+('FERNANDO GRACIANO', '16991340447'),
+('MARK HARDWARE', '1496585474'),
+('MAXWELL LINDAO', '1485963256'),
+('MARIA LOIRA', '1499996325'),
+('MARIA MATOS', '1488774455'),
+('PIETRO RODRIGUES', '1496587452'),
+('LACERDA DUTRA', '1499663322'),
+('SAMUEL JACKSON', '1436884778');
+");

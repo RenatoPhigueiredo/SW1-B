@@ -1,58 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>primeira aula</title>
+    <title>Página Inicial</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/sidebar/sidebars.css" rel="stylesheet" />
 </head>
 <body>
-    <?php
-    $minhaLista=[];
-    $minhaLista[]="laranja";
-    $minhaLista[]="maça";
-    $minhaLista[]="maverick";
-    $minhaLista[]="civicSI";
+    <div class="container">
+        <div class="row">
+            <div class="col-3">
+            <ul class="list-group">
+                    <li class="list-group-item">
+                        <a href="instalar.php">
+                            Instalação do banco de dados
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        Listagem do banco
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
-    echo"<pre>";
-    print_r($minhaLista);
 
-    echo"<ol>";
-    for ($i =0; $i < count($minhaLista); $i++)
-    {
-        echo"<li>$minhaLista[$i]</li>";
-    }
-    echo"</ol>";
-
-    echo"<table border='2'>";
-    foreach($minhaLista as $item)
-    {
-        echo"<tr><td>$item</td></tr>";
-
-    }
-    echo"</table>";
-
-    $professores=[];
-    $professores[]=["ID" => "1", "nome"=>"renato", "ativo"=>"1"];
-    $professores[]=["ID" => "2", "nome"=>"maria", "ativo"=>"1"];
-    $professores[]=["ID" => "3", "nome"=>"lacerda", "ativo"=>"0"];
-
-    echo"<table border='2'>";
-    foreach($professores as $professor)
-    {
-        echo"
-        <tr>
-            <td>$professor[ID]</td>
-            <td>$professor[nome]</td>
-            <td>$professor[ativo]</td>
-        </tr>
-        ";
-    }
-    
-    echo"</table>";
-
-    ?>
-
-    
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="sidebars.js" class="astro-vvvwv3sm"></script>
 </body>
 </html>
